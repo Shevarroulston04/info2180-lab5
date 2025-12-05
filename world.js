@@ -1,6 +1,7 @@
 window.onload = function() {
     let button = document.querySelector("#lookup");
     let input = document.querySelector("#country");
+    let cityButton = document.querySelector("#lookup-cities");
 
     // When clicking the button
     button.addEventListener("click", () => {
@@ -12,10 +13,13 @@ window.onload = function() {
             });
     });
 
-    // When pressing Enter
-    input.addEventListener("keypress", function(event) {
-        if (event.key === "Enter") {
-            button.click();
-        }
+    cityButton.addEventListener("click", () => {
+        let country = document.querySelector("#country").value;
+        
+        fetch(`world.php?country=${country}&lookup=cities`)
+            .then(response => response.text())
+            .then(data => {
+                 document.querySelector("#result").innerHTML = data;
+            });
     });
 };
